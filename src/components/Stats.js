@@ -4,7 +4,9 @@ const readingTime = require('reading-time');
 
 class Stats extends React.Component {
   wordCount = () => {
-    const splitText = this.props.text.trim().split('');
+    let text = this.props.text.replace(/[^A-Za-z]/g, ' ');
+    text = text.replace( /  +/g, ' ');
+    const splitText = text.trim().split('');
     if(!splitText.length)
       return 0;
 
@@ -13,13 +15,15 @@ class Stats extends React.Component {
   }
   
   numOfLetters = () => {
-    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    let text = this.props.text.replace(/[^A-Za-z]/g, ' ');
+    text = text.replace( /  +/g, ' ');
     const splitText = text.trim().split(' ');
     return splitText.join('').length;
   }
 
   longestWord = () => {
-    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    let text = this.props.text.replace(/[^A-Za-z]/g, ' ');
+    text = text.replace( /  +/g, ' ');
     const splitText = text.trim().split(' ');
     let longest = 0, longestWord = '🤷';
     splitText.forEach(word => {
@@ -32,27 +36,31 @@ class Stats extends React.Component {
   }
 
   averageWordLength = () => {
-    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    let text = this.props.text.replace(/[^A-Za-z]/g, ' ');
+    text = text.replace( /  +/g, ' ');
     const splitText = text.trim().split(' ');
     const numOfChars = splitText.join('').length;
     return (numOfChars / this.wordCount() > 0) ? (numOfChars / this.wordCount()).toFixed(2) : 0;
   }
 
   readingDuration = () => {
-    const text = this.props.text.replace(/[^A-Za-z0-9\s]/g,"");
+    let text = this.props.text.replace(/[^A-Za-z0-9]/g, ' ');
+    text = text.replace( /  +/g, ' ');;
     const stats = readingTime(text);
-    return `${(stats.minutes * 60).toFixed(2)} s`;
+    return `${(stats.minutes * 60).toFixed(2) > 0 ? (stats.minutes * 60).toFixed(2) : 0} s`;
   }
 
   medianWordLength = () => {
-    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    let text = this.props.text.replace(/[^A-Za-z]/g, ' ');
+    text = text.replace( /  +/g, ' ');
     const splitText = text.trim().split(' ');
     const middle = Math.floor(splitText.length / 2);
     return splitText[middle].length;
   }
 
   sortedMedianWordLength = () => {
-    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    let text = this.props.text.replace(/[^A-Za-z]/g, ' ');
+    text = text.replace( /  +/g, ' ');
     const splitText = text.trim().split(' ');
     const middle = Math.floor(splitText.length / 2);
     const orderedText = splitText.sort((a,b) => a.length - b.length);
@@ -61,7 +69,8 @@ class Stats extends React.Component {
 
   // the num of words needed can be implemented
   topCommonWords = (num) => {
-    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    let text = this.props.text.replace(/[^A-Za-z]/g, ' ');
+    text = text.replace( /  +/g, ' ');
     let splitText = text.trim().split(' ');
     splitText = splitText.map((word) => {
       return [word, 0];
@@ -70,7 +79,7 @@ class Stats extends React.Component {
     for(let i = 0; i < splitText.length; i++) {
       let currWord = splitText[i][0];
       for(let y = 0; y < splitText.length; y++) {
-        if(splitText[y][0] === currWord) {
+        if(splitText[y][0] === currWord && currWord !== '') {
           splitText[y][1] = splitText[y][1] + 1;
           break;
         }
@@ -86,7 +95,7 @@ class Stats extends React.Component {
         str += `${orderedText[i][0]}, `;
       i++;
     }
-    return str !== ', ' ? str.slice(0, -2) : '🤷';
+    return str !== ' ' ? str.slice(0, -2) : '🤷';
   }
 
   render() {
