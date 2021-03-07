@@ -1,4 +1,6 @@
 import React from 'react';
+// the npm package that is used: https://www.npmjs.com/package/reading-time
+const readingTime = require('reading-time');
 
 class Stats extends React.Component {
   wordCount = () => {
@@ -17,11 +19,14 @@ class Stats extends React.Component {
 
   longestWord = () => {
     const splitText = this.props.text.trim().split(' ');
-    let longest = 0;
+    let longest = 0, longestWord = '🤷';
     splitText.forEach(word => {
-      longest = word.length > longest ? word.length : longest;
+      if(word.length > longest) {
+        longest = word.length;
+        longestWord = word;
+      }
     });
-    return longest;
+    return longestWord;
   }
 
   averageWordLength = () => {
@@ -30,12 +35,63 @@ class Stats extends React.Component {
     return (numOfChars / this.wordCount() > 0) ? (numOfChars / this.wordCount()).toFixed(2) : 0;
   }
 
+  readingDuration = () => {
+    const stats = readingTime(this.props.text);
+    return `${(stats.minutes * 60).toFixed(2)} s`;
+  }
+
+  medianWordLength = () => {
+    const splitText = this.props.text.trim().split(' ');
+    const middle = Math.floor(splitText.length / 2);
+    return splitText[middle].length;
+  }
+
+  sortedMedianWordLength = () => {
+    const splitText = this.props.text.trim().split(' ');
+    const middle = Math.floor(splitText.length / 2);
+    const orderedText = splitText.sort((a,b) => a.length - b.length);
+    return orderedText[middle].length;
+  }
+
+  // the num of words needed can be implemented
+  topCommonWords = (num) => {
+    let splitText = this.props.text.trim().split(' ');
+    splitText = splitText.map((word) => {
+      return [word, 0];
+    });
+
+    for(let i = 0; i < splitText.length; i++) {
+      let currWord = splitText[i][0];
+      for(let y = 0; y < splitText.length; y++) {
+        if(splitText[y][0] === currWord) {
+          splitText[y][1] = splitText[y][1] + 1;
+          break;
+        }
+      }
+    }
+
+    let orderedText = splitText.sort((a,b) => b[1] - a[1]);
+    orderedText = orderedText.filter(word => word[1] !== 0);
+    
+    let str = '', i = 0;
+    while(i < num){
+      if(orderedText[i])
+        str += `${orderedText[i][0]}, `;
+      i++;
+    }
+    return str !== ', ' ? str.slice(0, -2) : '🤷';
+  }
+
   render() {
   const functions = [
     {name: 'Word Count', value: this.wordCount()},
     {name: 'Number of Letters', value: this.numOfLetters()},
-    {name: 'Longest Word Length', value: this.longestWord()},
-    {name: 'Average Word Length', value: this.averageWordLength()}
+    {name: 'Longest Word', value: this.longestWord()},
+    {name: 'Average Word Length', value: this.averageWordLength()},
+    {name: 'Reading Duration', value: this.readingDuration()},
+    {name: 'Median Word Length', value: this.medianWordLength()},
+    {name: 'Sorted Median Word Length', value: this.sortedMedianWordLength()},
+    {name: 'Top 5 Common Words', value: this.topCommonWords(5)}
   ]
   
     return(
