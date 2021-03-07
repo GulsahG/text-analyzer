@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Karla&family=Poppins:wght@600&display=swap');
+
+$darkGreen: #20717c;
+$lightGreen: #d0f9fb;
+$darkOrange: #fA7b7d;
+$lightOrange: #fc8b85;
+$lightPink: #deb5b3;
+$lighterPink: #dfcbc8;
+$brown: #50454b;
+
+$heading-font: 'Concert One', cursive;
+$paragraph-font: 'Karla', sans-serif;
+$subheading-font: 'Poppins', sans-serif;
+
+html, body {
+  background-color: $darkGreen;
+}
+
+body, p, textarea, button {
+  font-family: $paragraph-font;
+}
+
+h1, h2, h3 {
+  font-family: $heading-font;
+}
+
+h4, h5, h6 {
+  font-family: $subheading-font;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  h1 {
+    color: $darkOrange;
+    margin: 5vw 0 0 20vw;
+    font-size: 4rem;
+  }
+  h4 {
+    color: $lightPink;
+    margin: 1vw 0 3.5vw 21.5vw;
+  }
+  textarea {
+    position: absolute;
+    outline: none;
+    resize: none;
+    margin: 15vw 0;
+    width: 37vw;
+    height: 20vw;
+    align-self: center;
+    background: #D0F9FB;
+    border: 10px solid #C4E0E5;
+    box-shadow: 10px 15px 10px rgba(80, 69, 75, 0.5);
+    border-radius: 15px 125px;
+    color: $brown;
+    padding: 1.5vw;
+  }
+
+  button {
+    background-color: $lightOrange;
+    width: 8.5vw;
+    height: auto;
+    padding: 0.75vw;
+    margin: 25.5vw 0 3.5vw 0;
+    margin-left: 68vw;
+    box-shadow: 2.5px 5px 5px $brown;
+    border-width: 0;
+    border-radius: 15px;
+    text-shadow: 0px 4px 4px $brown;
+    color: white;
+    font-size: 1.35rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  button:hover {
+    transform: scale(1.1);
+  }
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 60vw;
+}
+
+hr {
+  width: 100%;
+  height: 3px;
+  background-color: $lighterPink;
+  border-radius: 5px;
+}
+
+.stats-line {
+  display: flex;
+  height: 5vw;
+  padding: 0 1.5vw;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  h4 {
+    margin: 0;
+  }
+  h5 {
+    font-family: $heading-font;
+    color: $darkOrange;
+    font-size: 2rem;
+    text-align: end;
+  }
+}
