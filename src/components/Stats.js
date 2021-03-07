@@ -95,7 +95,7 @@ class Stats extends React.Component {
         str += `${orderedText[i][0]}, `;
       i++;
     }
-    return str !== ' ' ? str.slice(0, -2) : '🤷';
+    return str.match(/[A-Za-z]/g) ? str.slice(0, -2) : '🤷';
   }
 
   render() {
