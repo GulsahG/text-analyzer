@@ -36,15 +36,17 @@ h4, h5, h6 {
     margin: 5vw 0 0 20vw;
     font-size: 4rem;
   }
+
   h4 {
     color: $lightPink;
     margin: 1vw 0 3.5vw 21.5vw;
   }
+
   textarea {
     position: absolute;
     outline: none;
     resize: none;
-    margin: 15vw 0;
+    margin: 17.5vw 0;
     width: 37vw;
     height: 20vw;
     align-self: center;
@@ -61,8 +63,7 @@ h4, h5, h6 {
     width: 8.5vw;
     height: auto;
     padding: 0.75vw;
-    margin: 25.5vw 0 3.5vw 0;
-    margin-left: 68vw;
+    margin: 28vw 0 3.5vw 68vw;
     box-shadow: 2.5px 5px 5px $brown;
     border-width: 0;
     border-radius: 15px;
@@ -107,5 +108,78 @@ hr {
     color: $darkOrange;
     font-size: 2rem;
     text-align: end;
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .container {
+    h1 {
+      font-size: 3.25rem;
+    }
+    textarea {
+      width: 55vw;
+      height: 29vw;
+      margin: 22.5vw 0;
+    }
+    button {
+      margin: 42.5vw 0 5vw 65vw;
+      width: 12.5vw;
+    }
+  }
+
+  .stats-container {
+    width: 75vw;
+  }
+
+  .stats-line {
+    font-size: 1.25rem; 
+    height: 6.25vw;
+    
+    h5 {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .container {
+    h1 {
+      margin-left: 0;
+      text-align: center;
+      font-size: 2.5rem;
+    }
+
+    h4 {
+      margin-left: 0;
+      text-align: center;
+    }
+
+    textarea {
+      margin: 35vw 0;
+      width: 70vw;
+      height: 45vw;
+      border-radius: 5px 41.5px;
+    }
+
+    button {
+      width: 25vw;
+      margin: 65vw 0 7vw 65vw;
+      font-size: 1.2rem;
+    }
+  }
+
+  .stats-container {
+    width: 85vw;
+  }
+
+  .stats-line {
+    height: 7.5vw;
+    font-size: 1rem; 
+
+    h5 {
+      font-size: 1.5rem;
+    }
   }
 }
