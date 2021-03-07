@@ -13,12 +13,14 @@ class Stats extends React.Component {
   }
   
   numOfLetters = () => {
-    const splitText = this.props.text.trim().split(' ');
+    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    const splitText = text.trim().split(' ');
     return splitText.join('').length;
   }
 
   longestWord = () => {
-    const splitText = this.props.text.trim().split(' ');
+    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    const splitText = text.trim().split(' ');
     let longest = 0, longestWord = '🤷';
     splitText.forEach(word => {
       if(word.length > longest) {
@@ -30,24 +32,28 @@ class Stats extends React.Component {
   }
 
   averageWordLength = () => {
-    const splitText = this.props.text.trim().split(' ');
+    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    const splitText = text.trim().split(' ');
     const numOfChars = splitText.join('').length;
     return (numOfChars / this.wordCount() > 0) ? (numOfChars / this.wordCount()).toFixed(2) : 0;
   }
 
   readingDuration = () => {
-    const stats = readingTime(this.props.text);
+    const text = this.props.text.replace(/[^A-Za-z0-9\s]/g,"");
+    const stats = readingTime(text);
     return `${(stats.minutes * 60).toFixed(2)} s`;
   }
 
   medianWordLength = () => {
-    const splitText = this.props.text.trim().split(' ');
+    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    const splitText = text.trim().split(' ');
     const middle = Math.floor(splitText.length / 2);
     return splitText[middle].length;
   }
 
   sortedMedianWordLength = () => {
-    const splitText = this.props.text.trim().split(' ');
+    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    const splitText = text.trim().split(' ');
     const middle = Math.floor(splitText.length / 2);
     const orderedText = splitText.sort((a,b) => a.length - b.length);
     return orderedText[middle].length;
@@ -55,7 +61,8 @@ class Stats extends React.Component {
 
   // the num of words needed can be implemented
   topCommonWords = (num) => {
-    let splitText = this.props.text.trim().split(' ');
+    const text = this.props.text.replace(/[^A-Za-z\s]/g,"");
+    let splitText = text.trim().split(' ');
     splitText = splitText.map((word) => {
       return [word, 0];
     });
